@@ -7,20 +7,24 @@ const Login = ({ setToken }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  
   const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(backendURL + '/api/user/admin', { email, password });
-      if (response.data.success) {
-        setToken(response.data.token);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+  e.preventDefault();
+  const url = backendURL + '/api/user/admin';
+  console.log('Posting to:', url);
+  try {
+    const response = await axios.post(url, { email, password });
+    if (response.data.success) {
+      setToken(response.data.token);
+    } else {
+      toast.error(response.data.message);
     }
-  };
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message);
+  }
+};
+
 
   return (
     <div className='min-h-screen flex items-center justify-center w-full'>

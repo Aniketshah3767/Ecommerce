@@ -34,6 +34,7 @@ const loginUser = async (req, res) => {
 
 // Route for user register
 const registerUser = async (req, res) => {
+   console.log('BODY:', req.body);
   try {
     const { name, email, password } = req.body;
 
@@ -63,6 +64,7 @@ const registerUser = async (req, res) => {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
+  // res.json({msg:"Register API is not implemented yet"});
 };
 
 // Route for admin login
@@ -71,7 +73,7 @@ const adminLogin = async (req, res) => {
         const {email,password} = req.body
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
             const token = jwt.sign(email+password ,process.env.JWT_SECRET);
-            res,json({success:true,token})
+            res.json({success:true,token})
         }
         else{
             res.json({success:false,message:"Invalid credentials"})
